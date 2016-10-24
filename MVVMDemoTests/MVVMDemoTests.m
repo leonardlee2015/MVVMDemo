@@ -7,9 +7,10 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "HomeVIewModel.h"
 
 @interface MVVMDemoTests : XCTestCase
-
+@property (nonnull,strong,nonatomic)XCTestExpectation *expectation;
 @end
 
 @implementation MVVMDemoTests
@@ -29,6 +30,21 @@
     // Use XCTAssert and related functions to verify your tests produce the correct results.
 }
 
+-(void)testHomeVM{
+    self.expectation = [self expectationWithDescription:@"aa"];
+
+    HomeVIewModel *vm = [HomeVIewModel new];
+    [vm handleDataWithSuccess:^(NSArray<HomeModel *> * _Nonnull homeModels) {
+
+
+        XCTAssert(homeModels.count >0,@"adsfadfa");
+        [self.expectation fulfill];
+    } failure:^(NSError * _Nonnull error) {
+        [self.expectation fulfill];
+
+    }];
+    [self waitForExpectationsWithTimeout:20 handler:nil];
+}
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
